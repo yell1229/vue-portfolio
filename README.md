@@ -2,6 +2,8 @@
 
 목표: Vue의 이해를 위한 single page 연습
 
+(https://yell1229.github.io/vue-portfolio/)[https://yell1229.github.io/vue-portfolio/]
+
 
 ## 설치 라이브러리 
 ### client
