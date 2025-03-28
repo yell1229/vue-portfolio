@@ -1,5 +1,6 @@
 @charset 'utf-8';
-@import "reset", "common";
+@use "./reset.scss";
+@use './variables' as *;
 
 // header
 .header{
@@ -37,6 +38,7 @@
                 border-radius:4px;
                 transition:all .5s ease-in;
                 border:1px solid $color-black;
+                cursor: pointer;
                 &.active{
                     border:1px solid $color-blue;
                 }
@@ -55,6 +57,7 @@
 
 // home
 .home-area{
+    position: relative;
     height:100vh; 
     background-color: $color-black;
     display:flex;
@@ -103,6 +106,7 @@
 
 // about me
 .about-area{
+    position: relative;
     width:100%;
     padding-top:74px;
     overflow-x:hidden;
@@ -198,8 +202,10 @@
 
 //skill
 .skill-area{
+    position: relative;
     padding-top:74px;
     overflow-x:hidden;
+    background-color:$color-gray;
     #skill{
         background-color:$color-gray;
         color:$color-white;
@@ -318,6 +324,7 @@
 }
 // work
 .work-area{
+    position: relative;
     padding-top:74px;
     overflow-x:hidden;
     background-color: $color-black;
@@ -418,7 +425,9 @@
 
 // testimonials
 .testimonials-area{
-    padding-top:74px;overflow-x:hidden; 
+    position: relative;
+    padding-top:74px;
+    overflow-x:hidden; 
     .testimonials{
         margin:3rem;
         .testimonial{

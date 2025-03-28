@@ -1,67 +1,75 @@
 <script setup>
-import { ref, onMounted, defineEmits, nextTick } from 'vue';
-import Home from './Home.vue';
-import AboutMe from './AboutMe.vue';
-import MySkill from './MySkill.vue';
-import MyWork from './MyWork.vue';
-import Testimonials from './Testimonials.vue';
+import { ref, onMounted, nextTick } from "vue";
+import { useSectionStore } from "../../stores/sectionStore"; // Pinia 스토어 가져오기
+import Home from "./Home.vue";
+import AboutMe from "./AboutMe.vue";
+import MySkill from "./MySkill.vue";
+import MyWork from "./MyWork.vue";
+import Testimonials from "./Testimonials.vue";
 
-const contRefs = {
-    homeRef: ref(null),
-    aboutRef: ref(null),
-    skillRef: ref(null),
-    workRef: ref(null),
-    testiRef: ref(null),
+const store = useSectionStore(); // Pinia 스토어 사용
+
+const homeRef = ref(null);
+const aboutRef = ref(null);
+const skillRef = ref(null);
+const workRef = ref(null);
+const testiRef = ref(null);
+let newPositions = {};
+// ✅ getBoundingClientRect() 사용
+const getElementTop = (element) => {
+    if (!element) return 0;
+    const rect = element.getBoundingClientRect();
+    return rect.top + window.scrollY;
 };
 
-const emit = defineEmits(['updateSectionPositions']);
+// ✅ 섹션 위치 업데이트 함수
+const updateSectionPositions = () => {
+    newPositions = {
+        homeTop: getElementTop(homeRef.value),
+        aboutTop: getElementTop(aboutRef.value),
+        skillTop: getElementTop(skillRef.value),
+        workTop: getElementTop(workRef.value),
+        testiTop: getElementTop(testiRef.value),
+    };
 
-// sectionPositions을 외부에서 선언하여 이벤트 리스너에서도 접근 가능하게 함
-let sectionPositions = {
-    homeTop: 0,
-    aboutTop: 0,
-    skillTop: 0,
-    workTop: 0,
-    testiTop: 0,
+    console.log("Updated sectionPositions:", newPositions); // 값이 잘 들어감.
+    store.updatePositions(newPositions); // Pinia 스토어 업데이트 ?? 다른곳에서 값이 0. 업데이트 안됨.
 };
 
 onMounted(async () => {
     await nextTick();
-    // sectionPositions 업데이트
-    sectionPositions = {
-        homeTop: contRefs.homeRef.value?.offsetTop ?? 0,
-        aboutTop: (contRefs.aboutRef.value?.offsetTop ?? 0) - 150,
-        skillTop: (contRefs.skillRef.value?.offsetTop ?? 0) - 150,
-        workTop: (contRefs.workRef.value?.offsetTop ?? 0) - 150,
-        testiTop: (contRefs.testiRef.value?.offsetTop ?? 0) - 150,
-    };
+    for(let i=0; i <10; i++){
+        setTimeout(() => {
+            updateSectionPositions();
+        }, 500);   
+    }
+    window.addEventListener("resize", updateSectionPositions);
 
-    // 부모에게 섹션 위치 데이터 전달
-    emit('updateSectionPositions', sectionPositions);
-
-    // 스크롤 이벤트 내부에서도 sectionPositions을 사용
     window.addEventListener('scroll', () => {
         const scrollY = window.scrollY;
+        // const sections = [homeRef, aboutRef, skillRef, workRef, testiRef];
 
-        if (scrollY > sectionPositions.homeTop && scrollY < sectionPositions.aboutTop) {
-            contRefs.homeRef.value?.classList.add('on');
-        } else if (scrollY > sectionPositions.aboutTop && scrollY < sectionPositions.skillTop) {
-            contRefs.aboutRef.value?.classList.add('on');
-        } else if (scrollY > sectionPositions.skillTop && scrollY < sectionPositions.workTop) {
-            contRefs.skillRef.value?.classList.add('on');
-        } else if (scrollY > sectionPositions.workTop && scrollY < sectionPositions.testiTop) {
-            contRefs.workRef.value?.classList.add('on');
-        } else if (scrollY > sectionPositions.testiTop) {
-            contRefs.testiRef.value?.classList.add('on');
+        // sections.forEach(ref => ref.value?.classList.remove('on'));
+
+        if (scrollY > newPositions.homeTop && scrollY < newPositions.aboutTop) {
+            homeRef.value?.classList.add('on');
+        } else if (scrollY > newPositions.aboutTop -5 && scrollY < newPositions.skillTop) {
+            aboutRef.value?.classList.add('on');
+        } else if (scrollY > newPositions.skillTop -5 && scrollY < newPositions.workTop) {
+            skillRef.value?.classList.add('on');
+        } else if (scrollY > newPositions.workTop -5 && scrollY < newPositions.testiTop) {
+            workRef.value?.classList.add('on');
+        } else if (scrollY > newPositions.testiTop -15) {
+            testiRef.value?.classList.add('on');
         }
     });
 });
 </script>
 
 <template>
-    <div class="home-area" :ref="el => contRefs.homeRef.value = el"><Home /></div>
-    <div class="about-area" :ref="el => contRefs.aboutRef.value = el"><AboutMe /></div>
-    <div class="skill-area" :ref="el => contRefs.skillRef.value = el"><MySkill /></div>
-    <div class="work-area" :ref="el => contRefs.workRef.value = el"><MyWork /></div>
-    <div class="testimonials-area" :ref="el => contRefs.testiRef.value = el"><Testimonials /></div>
+    <div ref="homeRef" class="home-area"><Home /></div>
+    <div ref="aboutRef" class="about-area"><AboutMe /></div>
+    <div ref="skillRef" class="skill-area"><MySkill /></div>
+    <div ref="workRef" class="work-area"><MyWork /></div>
+    <div ref="testiRef" class="testimonials-area"><Testimonials /></div>
 </template>

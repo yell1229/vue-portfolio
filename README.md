@@ -8,3 +8,5 @@
 ```bash
 npm create vite@latest
 npm install primeicons
+npm install pinia
+
