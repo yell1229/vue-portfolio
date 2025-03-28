@@ -1,5 +1,14 @@
 <script setup>
 import { ref } from 'vue';
+import MenuList from './MenuList.vue';
+
+import { defineProps } from 'vue';
+
+const props = defineProps({
+    sectionPositions: Object, // 부모로부터 sectionPositions을 받음
+});
+// console.log('props', props.sectionPositions);
+
 const list = [
     {id:"#home", name: 'Home'},
     {id:"#about", name: 'About'},
