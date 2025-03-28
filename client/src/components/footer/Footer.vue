@@ -1,5 +1,8 @@
 <script setup>
 import { ref } from 'vue'
+import PrimeVue from 'primevue/config';
+import 'primeicons/primeicons.css'
+
 
 </script>
 
@@ -9,10 +12,10 @@ import { ref } from 'vue'
         <p class="description">jeon.developer.judy@gmail.com</p>
         <ul class="contact__links">
             <li>
-                <a class="contact__link" href="http://github.com"><i class="fa-brands fa-github"></i></a>
+                <a class="contact__link" href="http://github.com"><i class="pi pi-github"></i></a>
             </li>
             <li>
-                <a class="contact__link" href="http://linkedin.com"><i class="fa-brands fa-linkedin"></i></a>
+                <a class="contact__link" href="http://linkedin.com"><i class="pi pi-linkedin"></i></a>
             </li>
         </ul>
         <p>Dream Software Engineer Judy - All right reserved</p>
