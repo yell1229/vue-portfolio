@@ -57,6 +57,9 @@
 .home-area{
     height:100vh; 
     background-color: $color-black;
+    display:flex;
+    align-items: center;
+    justify-content: center;
     #home{
         background-color: $color-black;
         color: $color-white;
@@ -101,6 +104,7 @@
 // about me
 .about-area{
     width:100%;
+    padding-top:74px;
     overflow-x:hidden;
     .title {
         position:relative;
@@ -274,8 +278,8 @@
             }
         }
     }
-    &.on{
-        &.bar{
+    &.on .skills{
+        .bar{
             &:nth-child(1) .bar__value{
                 width:98%;
                 transition-delay: 0.5s;
@@ -301,9 +305,14 @@
                 transition-delay: 1s;
             } 
         }
-        &.skills__tools{
+        .skills__tools{
             opacity: 1;
-          }
+        }
+
+        .skills__etc{
+                opacity: 1;  
+        }
+        
     }
 
 }
@@ -421,10 +430,7 @@
             gap:2rem;
             margin-bottom:2rem;
             transition:all .7s ease-in;
-            &.on .testimonial{
-                transform:translateX(0);
-                opacity: 1;
-            }
+
             &:nth-child(even){
                 transform:translateX(2000px);
             }
@@ -458,6 +464,10 @@
                 }
             }
         }
+    }
+    &.on .testimonial,  &.on .testimonial:nth-child(even){
+        transform:translateX(0);
+        opacity: 1;
     }
 }
 

@@ -4,7 +4,6 @@ import { ref } from 'vue'
 </script>
 
 <template>
-  <div class="skill-area">
     <section id="skill" class="section max-container">
       <h2 class="title">My Skills</h2>
       <p class="description">Skills & Attributes</p>
@@ -62,7 +61,6 @@ import { ref } from 'vue'
         </article>
       </div> 
     </section>
-    </div>
 </template>
 
 <style>

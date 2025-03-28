@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
-import PrimeVue from 'primevue/config';
-import 'primeicons/primeicons.css'
+import TopBtn from './TopBtn.vue';
+import 'primeicons/primeicons.css';
 
 
 </script>
@@ -19,6 +19,7 @@ import 'primeicons/primeicons.css'
             </li>
         </ul>
         <p>Dream Software Engineer Judy - All right reserved</p>
+        <TopBtn />
   </footer>
 </template>
 

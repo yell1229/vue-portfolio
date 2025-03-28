@@ -4,7 +4,7 @@ import { ref } from 'vue'
 </script>
 
 <template>
-    <div class="about-area">
+    
     <section id="about" class="section max-container">
       <h2 class="title">About me</h2>
       <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. 
@@ -45,7 +45,7 @@ import { ref } from 'vue'
         </li>
       </ul>
     </section>
-    </div>
+
 </template>
 
 <style>
