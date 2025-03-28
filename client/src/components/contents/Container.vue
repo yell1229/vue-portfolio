@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, defineEmits } from 'vue';
+import { ref, onMounted, defineEmits, nextTick } from 'vue';
 import Home from './Home.vue';
 import AboutMe from './AboutMe.vue';
 import MySkill from './MySkill.vue';
@@ -25,7 +25,8 @@ let sectionPositions = {
     testiTop: 0,
 };
 
-onMounted(() => {
+onMounted(async () => {
+    await nextTick();
     // sectionPositions 업데이트
     sectionPositions = {
         homeTop: contRefs.homeRef.value?.offsetTop ?? 0,

@@ -7,14 +7,14 @@ const props = defineProps({
     sectionPositions: Object, // 부모로부터 sectionPositions을 받음
 });
 
-const list = [
+const list = ref([
     {id:"#home", name: 'Home', top:0},
     {id:"#about", name: 'About', top:0},
     {id:"#skill", name: 'Skills', top:0},
     {id:"#work", name: 'My work', top:0},
     {id:"#testimonial", name: 'Testimonial', top:0},
     {id:"#contact", name: 'Contact', top:0}
-];
+]);
 
 // 부모에서 props.sectionPositions 값이 변경될 때 반응
 watch(() => props.sectionPositions, (newPositions) => {
@@ -34,8 +34,14 @@ watch(() => props.sectionPositions, (newPositions) => {
 }, { deep: true });
 
 
-const setActive = (id) => {
+const setActive = (id, targetTop) => {
   activeId.value = id;
+    console.log('top',targetTop);
+    
+  window.scrollTo({
+    top: targetTop,
+    behavior: "smooth"
+  });
 };
 
 
@@ -51,13 +57,13 @@ const setActive = (id) => {
         <nav>
             <ul class="header__menu">
             <li v-for="(item, index) in list" :key="index">
-                <a class="header__menu__item" 
+                <span class="header__menu__item" 
                     :href="item.id" 
                     :class="{ active: activeId === item.id }" 
-                    @click="setActive(item.id)"
+                    @click="setActive(item.id, item.top)"
                 >
                     {{ item.name }}
-                </a>
+            </span>
             </li>
         </ul>
         </nav>
